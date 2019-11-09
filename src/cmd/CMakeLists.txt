@@ -1,7 +1,5 @@
-set(COMPONENT_ADD_INCLUDEDIRS .)
-
-set(COMPONENT_SRCS "cmd_system.c")
-
+set(COMPONENT_SRCS "*.c")
+set(COMPONENT_ADD_INCLUDEDIRS ../include/cmd/)
 set(COMPONENT_REQUIRES console spi_flash)
 
 register_component()
