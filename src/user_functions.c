@@ -10,7 +10,6 @@
 
 #define BUFFERSIZE 256
 
-void print_buffer_status(cbuf_handle_t cbuf);
 
 int buffer_test(void)
 {
