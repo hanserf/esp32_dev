@@ -95,7 +95,19 @@ size_t circular_buf_size(cbuf_handle_t cbuf)
 
 	return size;
 }
+/*
+*Adding and Removing Data
+*Adding and removing data from a circular buffer requires manipulation of the head and tail pointers. 
 
+*Add data to the buffer by inserting new value at the current head, then increment head.
+*Remove data from buffer by retrieveing value at current tail pointer and increment tail.
+*If buffer full, tail pointer as well as head nedds to be incremented. 
+*If inserting a value will trigger buffer full condition.
+*If our buffer is already full, we advance tail. We always advance head by one. After the pointer has been advanced,
+*we populate the full flag by checking whether head == tail.
+*Note the use of the modulo operator (%) below. Modulo will cause the head and tail values to reset to 0 when the maximum size is reached.
+*This ensures that head and tail are always valid indices of the underlying data buffer.
+**/
 static void advance_pointer(cbuf_handle_t cbuf)
 {
 	assert(cbuf);
