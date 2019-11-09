@@ -120,8 +120,11 @@ static void advance_pointer(cbuf_handle_t cbuf)
 	cbuf->head = (cbuf->head + 1) % cbuf->max;
 	cbuf->full = (cbuf->head == cbuf->tail);
 }
-
-static void retreat_pointer(cbuf_handle_t cbuf)
+/*
+*Helper function which is called when removing a value from the buffer.
+*When we remove a value, the full flag is set to false, and the tail pointer is advanced.
+*
+*/static void retreat_pointer(cbuf_handle_t cbuf)
 {
 	assert(cbuf);
 
@@ -132,7 +135,10 @@ static void retreat_pointer(cbuf_handle_t cbuf)
 /*
 * Put version 1 continues to add data if the buffer is full
 * Old data is overwritten
+* Inserts a value into the buffer and increments the pointer.
+* If the buffer is full, the oldest value will be overwritten.
 */
+
 void circular_buf_put(cbuf_handle_t cbuf, uint8_t data)
 {
 	assert(cbuf && cbuf->buffer);
