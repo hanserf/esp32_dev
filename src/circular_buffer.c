@@ -1,9 +1,5 @@
 
 /* Ring buffer struct*/
-#include "stdint.h"
-#include "stddef.h"
-#include "stdbool.h"
-
 #include "ring_buffer.h"
 
 /*
@@ -26,6 +22,9 @@ cbuf_handle_t circular_buf_init(uint8_t* buffer, size_t size)
 	return cbuf;
 }
 
+/*
+* Reset the circular buffer to empty, head == tail
+*/
 void circular_buf_reset(cbuf_handle_t cbuf)
 {
     assert(cbuf);
@@ -44,7 +43,9 @@ void circular_buf_free(cbuf_handle_t cbuf)
 	assert(cbuf);
 	free(cbuf);
 }
-
+/*
+* Returns true if the buffer is full
+*/
 bool circular_buf_full(cbuf_handle_t cbuf)
 {
 	assert(cbuf);
@@ -52,12 +53,18 @@ bool circular_buf_full(cbuf_handle_t cbuf)
     return cbuf->full;
 }
 
+/*
+* Returns true if the buffer is empty
+*/
 bool circular_buf_empty(cbuf_handle_t cbuf)
 {
 	assert(cbuf);
 
     return (!cbuf->full && (cbuf->head == cbuf->tail));
 }
+/*
+* Returns the maximum capacity of the buffer
+*/
 size_t circular_buf_capacity(cbuf_handle_t cbuf)
 {
 	assert(cbuf);
@@ -65,6 +72,9 @@ size_t circular_buf_capacity(cbuf_handle_t cbuf)
 	return cbuf->max;
 }
 
+/*
+* Returns the current number of elements in the buffer
+*/
 size_t circular_buf_size(cbuf_handle_t cbuf)
 {
 	assert(cbuf);
@@ -107,6 +117,10 @@ static void retreat_pointer(cbuf_handle_t cbuf)
 	cbuf->tail = (cbuf->tail + 1) % cbuf->max;
 }
 
+/*
+* Put version 1 continues to add data if the buffer is full
+* Old data is overwritten
+*/
 void circular_buf_put(cbuf_handle_t cbuf, uint8_t data)
 {
 	assert(cbuf && cbuf->buffer);
@@ -115,6 +129,11 @@ void circular_buf_put(cbuf_handle_t cbuf, uint8_t data)
 
     advance_pointer(cbuf);
 }
+
+/*
+* Put Version 2 rejects new data if the buffer is full
+* Returns 0 on success, -1 if buffer is full
+*/
 int circular_buf_put2(cbuf_handle_t cbuf, uint8_t data)
 {
     int r = -1;
@@ -130,6 +149,10 @@ int circular_buf_put2(cbuf_handle_t cbuf, uint8_t data)
 
     return r;
 }
+/*
+* Retrieve a value from the buffer
+* Returns 0 on success, -1 if the buffer is empty
+*/
 int circular_buf_get(cbuf_handle_t cbuf, uint8_t * data)
 {
     assert(cbuf && data && cbuf->buffer);

@@ -1,6 +1,10 @@
 #pragma once
 
-#define BUFFERSIZE = 256;
+#include "stdint.h"
+#include "stddef.h"
+#include "stdbool.h"
+
+#define BUFFERSIZE = 256
 
 typedef struct circular_buf_t {
 	uint8_t * buffer;
@@ -19,8 +23,10 @@ typedef circular_buf_t* cbuf_handle_t;
 */
 cbuf_handle_t circular_buf_init(uint8_t* buffer, size_t size);
 
-/// Free a circular buffer structure.
-/// Does not free data buffer; owner is responsible for that
+/*
+*Free a circular buffer structure.
+* Does not free data buffer; owner is responsible for that
+*/
 void circular_buf_free(cbuf_handle_t cbuf);
 
 /// Reset the circular buffer to empty, head == tail
