@@ -112,3 +112,4 @@ Press TAB when typing command name to auto-complete.
 ---
 
 See the README.md file in the upper level 'examples' directory for more information about examples.
+annot determine link language for target "myLib"

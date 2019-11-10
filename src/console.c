@@ -21,6 +21,8 @@
 #include "nvs.h"
 #include "nvs_flash.h"
 
+#include "console.h"
+
 static const char* TAG = "example";
 
 /* Console command history can be stored to and loaded from a file.
@@ -115,7 +117,7 @@ static void initialize_console()
 #endif
 }
 
-void app_main()
+void console_app_main()
 {
     initialize_nvs();
 

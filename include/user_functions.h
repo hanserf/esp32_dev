@@ -1,6 +1,6 @@
 /* 
-* To keep main clean, it only provides system initialisation.
-* 
+* To keep main clean, it only provides system initialisation and spawns a console.
+* The console interfaces will have access user functions through this module.
 */
 
 
