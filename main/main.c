@@ -12,10 +12,11 @@
 #include "esp_system.h"
 #include "esp_spi_flash.h"
 #include "console.h"
-#include "main.h"
 #include "ring_buffer.h"
+#include "user_functions.h"
+#include "main.h"
 
-void app__main()
+void app_main()
 {
     printf("Hello world!\n");
 
